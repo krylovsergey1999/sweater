@@ -47,6 +47,10 @@ public class User implements UserDetails {
         return isActive();
     }
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
     public Long getId() {
         return id;
     }
