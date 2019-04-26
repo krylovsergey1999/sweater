@@ -22,6 +22,7 @@ public class UserController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("users", userSevice.findAll());
+
         return "userList";
     }
 
@@ -30,6 +31,7 @@ public class UserController {
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+
         return "userEdit";
     }
 
@@ -48,15 +50,18 @@ public class UserController {
     @GetMapping("profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("email",user.getEmail());
+        model.addAttribute("email", user.getEmail());
 
         return "profile";
     }
 
     @PostMapping("profile")
-    public String updateProfile(@AuthenticationPrincipal User user, @RequestParam String password, @RequestParam String email){
-
-        userSevice.updateProfile(user,password,email);
+    public String updateProfile(
+            @AuthenticationPrincipal User user,
+            @RequestParam String password,
+            @RequestParam String email
+    ) {
+        userSevice.updateProfile(user, password, email);
 
         return "redirect:/user/profile";
     }
