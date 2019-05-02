@@ -33,12 +33,12 @@ public class RegistrationController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/reg")
+    @GetMapping("/registration")
     public String registration() {
         return "reg";
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/registration")
     public String addUser(
             @RequestParam("password2") String passwordConfirm,
             @RequestParam("g-recaptcha-response") String captchaResponce,
@@ -68,12 +68,12 @@ public class RegistrationController {
 
             model.mergeAttributes(errors);
 
-            return "reg";
+            return "registration";
         }
 
         if (!userSevice.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");
-            return "reg";
+            return "registration";
         }
 
         return "redirect:/login";
